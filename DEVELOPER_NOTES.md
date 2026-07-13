@@ -1,6 +1,6 @@
 # HMS Developer Notes & Technical Reference
 
-This document provides technical design notes, implementation details, and developmental guidelines for engineers working on the Ashirwad Hospital Management System (HMS) codebase.
+This document provides technical design notes, implementation details, and developmental guidelines for engineers working on the Hospital Management System (HMS) codebase.
 
 ---
 

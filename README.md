@@ -1,6 +1,6 @@
-# Ashirwad Hospital Management System (HMS)
+# Hospital Management System (HMS)
 
-Welcome to the **Ashirwad Hospital Management System (HMS)** — a modern, state-of-the-art clinic companion and hospital administration portal. This platform features automated patient check-in, inpatient bed management, billing desks, pharmaceutical/laboratory inventory, and full-featured WhatsApp CRM capabilities.
+Welcome to the **Hospital Management System (HMS)** — a modern, state-of-the-art clinic companion and hospital administration portal. This platform features automated patient check-in, inpatient bed management, billing desks, pharmaceutical/laboratory inventory, and full-featured WhatsApp CRM capabilities.
 
 ---
 
@@ -56,7 +56,7 @@ graph TD
 ## 📂 Folder Structure
 
 ```
-ashirwad-hospital/
+hms-project/
 ├── README.md                           # Main project documentation (This file)
 ├── docker-compose.yml                  # Container configuration for local testing
 ├── local_dump.sql                      # Database schema dumps
