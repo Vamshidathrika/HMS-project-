@@ -457,6 +457,24 @@ export default function WhatsAppConsoleView() {
                   )}
                   <div ref={messagesEndRef} />
                 </div>
+                <div className="px-4 py-2.5 bg-[#F8FBFB] border-t border-[#D7E8EA] flex flex-wrap gap-1.5 items-center">
+                  <span className="text-[10px] font-bold text-emerald-800 mr-1 flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
+                    <span>Suggestions:</span>
+                  </span>
+                  {[
+                    { text: 'Your OPD appointment is confirmed. Please visit the reception on arrival.', label: 'Confirm Appt' },
+                    { text: 'Please send us your latest vitals (BP, SpO2, Temperature) for the doctor to review.', label: 'Ask Vitals' },
+                    { text: 'Your pharmacy bill and digital receipt have been generated.', label: 'Send Receipt' },
+                    { text: 'The doctor is ready for your consultation slot. Please join the queue.', label: 'Call Patient' },
+                    { text: 'Welcome to our clinic portal. Let us know how we can assist you today.', label: 'Welcome Msg' }
+                  ].map((sug, i) => (
+                    <button key={i} onClick={() => setMsgText(sug.text)}
+                      className="px-2 py-1 bg-white hover:bg-emerald-50 border border-[#D7E8EA] text-[#147C8A] rounded-lg text-[9px] font-bold transition-all">
+                      {sug.label}
+                    </button>
+                  ))}
+                </div>
                 <div className="p-3 border-t border-[#D7E8EA] bg-[#EAF7F8] flex items-center gap-2">
                   <input type="text" value={msgText} onChange={e => setMsgText(e.target.value)}
                     onKeyDown={e => e.key === 'Enter' && !e.shiftKey && handleSend()}

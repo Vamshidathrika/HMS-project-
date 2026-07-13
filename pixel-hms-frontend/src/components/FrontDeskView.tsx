@@ -1888,10 +1888,10 @@ export default function FrontDeskView({
                 <path d="M 50 18 L 50 82 M 18 50 L 82 50" stroke="black" strokeWidth="6" strokeLinecap="round" />
                 <circle cx="50" cy="50" r="14" fill="white" stroke="black" strokeWidth="1.5" />
                 <path d="M 45 46 Q 50 38 55 46 Q 62 50 55 54 Q 50 62 45 54 Q 38 50 45 46 Z" fill="black" />
-                <text x="50" y="94" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">{(localStorage.getItem('hms_hospital_name') || 'ASHIRWAD').substring(0, 12).toUpperCase()}</text>
+                <text x="50" y="94" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">{(localStorage.getItem('hms_hospital_name') || 'HMS CLINIC').substring(0, 12).toUpperCase()}</text>
               </svg>
               <div>
-                <h1 style={{ fontSize: '22px', fontWeight: 'bold', margin: '0', fontFamily: 'serif', letterSpacing: '0.5px', color: 'black' }}>{(localStorage.getItem('hms_hospital_name') || 'ASHIRWAD').toUpperCase()}</h1>
+                <h1 style={{ fontSize: '22px', fontWeight: 'bold', margin: '0', fontFamily: 'serif', letterSpacing: '0.5px', color: 'black' }}>{(localStorage.getItem('hms_hospital_name') || 'HMS CLINIC').toUpperCase()}</h1>
                 <p style={{ margin: '1px 0', fontSize: '10.5px', fontFamily: 'sans-serif', color: '#333' }}>Saraswati Nagar, Road No. 2</p>
                 <p style={{ margin: '1px 0', fontSize: '10.5px', fontFamily: 'sans-serif', color: '#333' }}>Opp. Dist. Co-operative Bank, Nizamabad</p>
                 <p style={{ margin: '1px 0', fontSize: '10.5px', fontFamily: 'sans-serif', color: '#000', fontWeight: 'bold' }}>Contact No: 08462-252322, 220322, 9515511633</p>
@@ -2200,7 +2200,7 @@ export default function FrontDeskView({
 
                   {/* Section 5: Configurable Hospital Footer */}
                   <div style={{ borderTop: '1px solid black', paddingTop: '8px', marginTop: '10px', fontSize: '9pt', textAlign: 'center', color: '#333' }}>
-                    <strong>{localStorage.getItem('hms_hospital_name') || 'ASHIRWAD HOSPITAL'}</strong><br/>
+                    <strong>{localStorage.getItem('hms_hospital_name') || 'HMS HOSPITAL'}</strong><br/>
                     {localStorage.getItem('hms_hospital_address') || 'Saraswati Nagar, Road No. 2, Opp. Dist. Co-operative Bank, Nizamabad'} &nbsp;|&nbsp; Contact No: {localStorage.getItem('hms_hospital_phone') || '08462-252322, 220322, 9515511633'}
                   </div>
                 </div>

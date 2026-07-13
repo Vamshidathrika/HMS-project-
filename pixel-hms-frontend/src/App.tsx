@@ -142,7 +142,7 @@ export default function App() {
 
   // HSS Config & Theme mapping states
   const [hssConfig, setHssConfig] = useState({
-    hospitalName: localStorage.getItem('hms_hospital_name') || 'ASHIRWAD',
+    hospitalName: localStorage.getItem('hms_hospital_name') || 'HMS CLINIC',
     hospitalTagline: localStorage.getItem('hms_tagline') || 'Hospital Companion',
     themeColor: localStorage.getItem('hms_theme_color') || 'sky',
     ponytailEnabled: localStorage.getItem('hms_ponytail_enabled') === 'true',
@@ -158,7 +158,7 @@ export default function App() {
   useEffect(() => {
     const handleConfigChange = () => {
       setHssConfig({
-        hospitalName: localStorage.getItem('hms_hospital_name') || 'ASHIRWAD',
+        hospitalName: localStorage.getItem('hms_hospital_name') || 'HMS CLINIC',
         hospitalTagline: localStorage.getItem('hms_tagline') || 'Hospital Companion',
         themeColor: localStorage.getItem('hms_theme_color') || 'sky',
         ponytailEnabled: localStorage.getItem('hms_ponytail_enabled') === 'true',

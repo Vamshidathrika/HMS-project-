@@ -60,7 +60,7 @@ interface BillingDeskViewProps {
 }
 
 export default function BillingDeskView({ initialSubTab }: BillingDeskViewProps) {
-  const hospitalName = localStorage.getItem('hms_hospital_name') || 'ASHIRWAD';
+  const hospitalName = localStorage.getItem('hms_hospital_name') || 'HMS CLINIC';
 
   // Sub-tab routing
   const [subTab, setSubTab] = useState<'billing' | 'daybook' | 'collection' | 'dpsr' | 'tpa' | 'history'>(

@@ -493,7 +493,7 @@ export default function OPCSView({ initialSubTab = 'ot' }: { initialSubTab?: 'ot
             <div className="max-w-2xl mx-auto bg-[#F8FBFB] border border-[#D7E8EA] rounded-2xl p-8 relative overflow-hidden shadow-2xl printable-ticket">
               <div className="text-center border-b border-[#D7E8EA] pb-6">
                 <span className="text-[10px] font-bold tracking-widest text-[#147C8A] uppercase">
-                  {localStorage.getItem('hms_hospital_name') || 'ASHIRWAD'}
+                  {localStorage.getItem('hms_hospital_name') || 'HMS CLINIC'}
                 </span>
                 <h2 className="text-xl font-bold text-[#1E293B] mt-1">SURGERY REPORT & LOGS</h2>
                 <p className="text-xs text-[#64748B] mt-1">OT Room: {printedSurgeryRecord.otBooking.otRoom} | Date: {printedSurgeryRecord.otBooking.surgeryDate}</p>
@@ -1211,7 +1211,7 @@ export default function OPCSView({ initialSubTab = 'ot' }: { initialSubTab?: 'ot
             <div className="max-w-2xl mx-auto bg-[#F8FBFB] border border-[#D7E8EA] rounded-2xl p-8 relative overflow-hidden shadow-2xl printable-ticket">
               <div className="text-center border-b border-[#D7E8EA] pb-6">
                 <span className="text-[10px] font-bold tracking-widest text-[#147C8A] uppercase">
-                  {localStorage.getItem('hms_hospital_name') || 'ASHIRWAD'}
+                  {localStorage.getItem('hms_hospital_name') || 'HMS CLINIC'}
                 </span>
                 <h2 className="text-xl font-bold text-[#1E293B] mt-1">DIAGNOSTIC TEST REPORT</h2>
                 <p className="text-xs text-[#64748B] mt-1">Ordered on: {new Date(viewedReportInv.orderDateTime).toLocaleString()}</p>

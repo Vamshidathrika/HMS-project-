@@ -61,7 +61,7 @@ export default function SettingsDeskView() {
   const [activeSubTab, setActiveSubTab] = useState<'users' | 'audit' | 'whatsapp' | 'config'>('users');
 
   // HSS System Configuration state
-  const [hospitalName, setHospitalName] = useState(() => localStorage.getItem('hms_hospital_name') || 'ASHIRWAD');
+  const [hospitalName, setHospitalName] = useState(() => localStorage.getItem('hms_hospital_name') || 'HMS CLINIC');
   const [hospitalTagline, setHospitalTagline] = useState(() => localStorage.getItem('hms_tagline') || 'Hospital Companion');
   const [hospitalAddress, setHospitalAddress] = useState(() => localStorage.getItem('hms_hospital_address') || 'Saraswati Nagar, Road No. 2, Opp. Dist. Co-operative Bank, Nizamabad');
   const [hospitalPhone, setHospitalPhone] = useState(() => localStorage.getItem('hms_hospital_phone') || '08462-252322, 220322, 9515511633');

@@ -707,7 +707,7 @@ export default function InpatientDeskView({
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#147C8A]/5 rounded-bl-full" />
               <div className="text-center border-b border-[#D7E8EA] pb-6">
                 <span className="text-[10px] font-bold tracking-widest text-[#147C8A] uppercase">
-                  {localStorage.getItem('hms_hospital_name') || 'ASHIRWAD'}
+                  {localStorage.getItem('hms_hospital_name') || 'HMS CLINIC'}
                 </span>
                 <h2 className="text-xl font-bold text-[#1E293B] mt-1">INPATIENT ADMISSION SLIP</h2>
                 <p className="text-xs text-[#64748B] mt-1">Generated on {admissionSlip.admissionDate} @ {admissionSlip.admissionTime}</p>
@@ -1280,7 +1280,7 @@ export default function InpatientDeskView({
               <div className="absolute top-0 right-0 w-32 h-32 bg-rose-500/5 rounded-bl-full" />
               <div className="text-center border-b border-[#D7E8EA] pb-6">
                 <span className="text-[10px] font-bold tracking-widest text-rose-700 uppercase">
-                  {localStorage.getItem('hms_hospital_name') || 'ASHIRWAD'}
+                  {localStorage.getItem('hms_hospital_name') || 'HMS CLINIC'}
                 </span>
                 <h2 className="text-xl font-bold text-[#1E293B] mt-1">DISCHARGE SUMMARY & BILL</h2>
                 <p className="text-xs text-[#64748B] mt-1">Discharged on {dischargeSlip.dischargeDate}</p>
@@ -2143,11 +2143,11 @@ export default function InpatientDeskView({
                           <path d="M 50 18 L 50 82 M 18 50 L 82 50" stroke="black" strokeWidth="6" strokeLinecap="round" />
                           <circle cx="50" cy="50" r="14" fill="white" stroke="black" strokeWidth="1.5" />
                           <path d="M 45 46 Q 50 38 55 46 Q 62 50 55 54 Q 50 62 45 54 Q 38 50 45 46 Z" fill="black" />
-                          <text x="50" y="94" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">AASHIRWAD</text>
+                          <text x="50" y="94" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">{(localStorage.getItem('hms_hospital_name') || 'HMS CLINIC').substring(0, 12).toUpperCase()}</text>
                         </svg>
                         <div>
                           <h1 style={{ fontSize: '20px', fontWeight: 'bold', margin: '0', fontFamily: 'serif', letterSpacing: '0.5px', color: 'black' }}>
-                            AASHIRWAD HOSPITAL
+                            {(localStorage.getItem('hms_hospital_name') || 'HMS HOSPITAL').toUpperCase()}
                           </h1>
                           <p style={{ margin: '1px 0', fontSize: '10px', color: '#333' }}>Saraswati Nagar, Road No. 2</p>
                           <p style={{ margin: '1px 0', fontSize: '10px', color: '#333' }}>Opp. Dist. Co-operative Bank, Nizamabad</p>
@@ -2213,6 +2213,95 @@ export default function InpatientDeskView({
                       </tbody>
                     </table>
 
+                    {/* SVG Telemetry Trends Graph */}
+                    {(() => {
+                      const validNotes = notesHistory.filter(n => n.pulse || n.spo2 || n.temperature).slice(-8);
+                      if (validNotes.length < 2) return null;
+
+                      const width = 680;
+                      const height = 140;
+                      const paddingLeft = 40;
+                      const paddingRight = 40;
+                      const paddingTop = 15;
+                      const paddingBottom = 25;
+
+                      const chartWidth = width - paddingLeft - paddingRight;
+                      const chartHeight = height - paddingTop - paddingBottom;
+
+                      const getPulseY = (val: number) => {
+                        const clamped = Math.max(50, Math.min(150, val));
+                        return paddingTop + chartHeight - ((clamped - 50) / 100) * chartHeight;
+                      };
+
+                      const getTempY = (val: number) => {
+                        const clamped = Math.max(95, Math.min(105, val));
+                        return paddingTop + chartHeight - ((clamped - 95) / 10) * chartHeight;
+                      };
+
+                      const getSpo2Y = (val: number) => {
+                        const clamped = Math.max(80, Math.min(100, val));
+                        return paddingTop + chartHeight - ((clamped - 80) / 20) * chartHeight;
+                      };
+
+                      let pulsePoints = "";
+                      let tempPoints = "";
+                      let spo2Points = "";
+
+                      validNotes.forEach((note, idx) => {
+                        const x = paddingLeft + (idx / (validNotes.length - 1)) * chartWidth;
+                        if (note.pulse) pulsePoints += `${idx === 0 || !pulsePoints ? 'M' : 'L'} ${x} ${getPulseY(note.pulse)} `;
+                        if (note.temperature) tempPoints += `${idx === 0 || !tempPoints ? 'M' : 'L'} ${x} ${getTempY(note.temperature)} `;
+                        if (note.spo2) spo2Points += `${idx === 0 || !spo2Points ? 'M' : 'L'} ${x} ${getSpo2Y(note.spo2)} `;
+                      });
+
+                      return (
+                        <div className="no-print" style={{ border: '1px solid black', padding: '10px', borderRadius: '8px', marginBottom: '15px', backgroundColor: '#fcfdfd', width: '100%' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                            <span style={{ fontSize: '10px', fontWeight: 'bold', color: 'black' }}>Vitals Telemetry Trends (Last {validNotes.length} readings)</span>
+                            <div style={{ display: 'flex', gap: '10px', fontSize: '9px', fontWeight: 'bold' }}>
+                              <span style={{ color: '#dc2626' }}>● Pulse Rate (PR)</span>
+                              <span style={{ color: '#0284c7' }}>● Temperature (°F)</span>
+                              <span style={{ color: '#16a34a' }}>● SpO2 (%)</span>
+                            </div>
+                          </div>
+                          <svg width="100%" height={height} viewBox={`0 0 ${width} ${height}`} style={{ overflow: 'visible' }}>
+                            {[0, 0.25, 0.5, 0.75, 1].map((ratio, i) => {
+                              const y = paddingTop + ratio * chartHeight;
+                              return (
+                                <line key={i} x1={paddingLeft} y1={y} x2={width - paddingRight} y2={y} stroke="#e2e8f0" strokeWidth="1" strokeDasharray="3,3" />
+                              );
+                            })}
+                            
+                            {validNotes.map((note, idx) => {
+                              const x = paddingLeft + (idx / (validNotes.length - 1)) * chartWidth;
+                              const dateObj = new Date(note.noteDateTime);
+                              const timeStr = !isNaN(dateObj.getTime()) ? dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }) : '';
+                              return (
+                                <text key={idx} x={x} y={height - 8} fontSize="8" fontWeight="bold" textAnchor="middle" fill="#64748B">
+                                  {timeStr}
+                                </text>
+                              );
+                            })}
+
+                            {pulsePoints && <path d={pulsePoints} fill="none" stroke="#dc2626" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />}
+                            {tempPoints && <path d={tempPoints} fill="none" stroke="#0284c7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />}
+                            {spo2Points && <path d={spo2Points} fill="none" stroke="#16a34a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />}
+
+                            {validNotes.map((note, idx) => {
+                              const x = paddingLeft + (idx / (validNotes.length - 1)) * chartWidth;
+                              return (
+                                <g key={idx}>
+                                  {note.pulse && <circle cx={x} cy={getPulseY(note.pulse)} r="3.5" fill="#dc2626" />}
+                                  {note.temperature && <circle cx={x} cy={getTempY(note.temperature)} r="3.5" fill="#0284c7" />}
+                                  {note.spo2 && <circle cx={x} cy={getSpo2Y(note.spo2)} r="3.5" fill="#16a34a" />}
+                                </g>
+                              );
+                            })}
+                          </svg>
+                        </div>
+                      );
+                    })()}
+
                     {/* Vitals Logs Table */}
                     <table style={{ width: '100%', border: '1px solid black', borderCollapse: 'collapse', fontSize: '10pt', color: 'black' }}>
                       <thead>
@@ -2270,7 +2359,7 @@ export default function InpatientDeskView({
 
                   {/* Configurable Hospital Footer */}
                   <div style={{ borderTop: '1px solid black', paddingTop: '8px', marginTop: '20px', fontSize: '9pt', textAlign: 'center', color: '#333' }}>
-                    <strong>{localStorage.getItem('hms_hospital_name') || 'ASHIRWAD HOSPITAL'}</strong><br/>
+                    <strong>{localStorage.getItem('hms_hospital_name') || 'HMS HOSPITAL'}</strong><br/>
                     {localStorage.getItem('hms_hospital_address') || 'Saraswati Nagar, Road No. 2, Opp. Dist. Co-operative Bank, Nizamabad'} &nbsp;|&nbsp; Contact No: {localStorage.getItem('hms_hospital_phone') || '08462-252322, 220322, 9515511633'}
                   </div>
                 </div>
