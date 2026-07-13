@@ -10,19 +10,19 @@ The HMS is structured as a **decoupled, multi-service architecture** designed fo
 
 ```mermaid
 graph TD
-    %% Client/User interactions
-    User((Hospital Staff / Doctor)) -->|HTTP/WS| Frontend[React + Vite Frontend (Port 5173 / 8080)]
-    
-    %% Internal flows
-    subgraph Local Services
-        Frontend -->|REST APIs| SpringBoot[Spring Boot Backend (Port 8080)]
-        Frontend -->|HTTP Requests| ExpressNode[WhatsApp Node Server (Port 3001)]
-        SpringBoot -->|REST / API Check| ExpressNode
-        SpringBoot -->|JPA/JDBC| LocalDB[(Local PostgreSQL - Port 5432)]
-    end
+    User --> Frontend
+    Frontend --> SpringBoot
+    Frontend --> ExpressNode
+    SpringBoot --> ExpressNode
+    SpringBoot --> LocalDB
+    ExpressNode --> WhatsAppNet
 
-    %% External integration
-    ExpressNode -->|Baileys Protocol| WhatsAppNet[WhatsApp Web API]
+    User[Hospital Staff / Doctor]
+    Frontend[React + Vite Frontend - Port 5173 / 8080]
+    SpringBoot[Spring Boot Backend - Port 8080]
+    ExpressNode[WhatsApp Node Server - Port 3001]
+    LocalDB[Local PostgreSQL Database - Port 5432]
+    WhatsAppNet[WhatsApp Web API Services]
 ```
 
 ### Core Architecture Components
