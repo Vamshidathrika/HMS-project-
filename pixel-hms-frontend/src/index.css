@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap');
+ 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Brand Design Tokens ────────────────────────────────────────────────── */
+:root {
+  --brand-primary:       #147C8A;
+  --brand-dark:          #0F6672;
+  --brand-accent:        #E8B347;
+  --brand-bg:            #F8FBFB;
+  --brand-surface:       #FFFFFF;
+  --brand-section:       #EAF7F8;
+  --brand-border:        rgba(215, 232, 234, 0.7);
+  --brand-text-primary:  #1E293B;
+  --brand-text-secondary:#64748B;
+  --brand-success:       #22C55E;
+  --brand-warning:       #F59E0B;
+  --brand-error:         #EF4444;
+  --brand-info:          #0EA5E9;
+  --radius-card:         20px;
+  --transition-fast:     150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-base:     300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Base Layer ─────────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', 'Outfit', 'Inter', sans-serif;
+    background-color: var(--brand-bg);
+    background-image: radial-gradient(rgba(20, 124, 138, 0.08) 1.2px, transparent 1.2px);
+    background-size: 28px 28px;
+    color: var(--brand-text-primary);
+    position: relative;
+    overflow-x: hidden;
+    @apply antialiased text-sm;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Decorative Ambient Glow */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -250px;
+    right: -250px;
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle, rgba(20, 124, 138, 0.08) 0%, rgba(232, 179, 71, 0.03) 50%, transparent 100%);
+    border-radius: 50%;
+    z-index: -1;
+    pointer-events: none;
+    filter: blur(80px);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    color: var(--brand-text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  input, select, textarea {
+    outline: none;
+  }
+
+  ::selection {
+    background-color: rgba(20, 124, 138, 0.15);
+    color: var(--brand-dark);
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(20, 124, 138, 0.15);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(20, 124, 138, 0.3);
+  }
+}
+
+/* ─── Component Layer ────────────────────────────────────────────────────── */
+@layer components {
+
+  /* Glassmorphic Elevated Cards */
+  .hms-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--brand-border);
+    border-radius: var(--radius-card);
+    box-shadow: 
+      0 10px 30px -10px rgba(20, 124, 138, 0.04), 
+      0 1px 3px rgba(20, 124, 138, 0.02);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  }
+  .hms-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(20, 124, 138, 0.25);
+    box-shadow: 
+      0 20px 40px -12px rgba(20, 124, 138, 0.08), 
+      0 2px 8px rgba(20, 124, 138, 0.04);
+  }
+
+  /* Form inputs */
+  .hms-input {
+    @apply w-full bg-white/80 border rounded-2xl px-4 py-2.5 text-sm text-[#1E293B] placeholder-[#94A3B8] transition-all duration-300;
+    border-color: var(--brand-border);
+    backdrop-filter: blur(4px);
+  }
+  .hms-input:focus {
+    border-color: var(--brand-primary);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(20, 124, 138, 0.12);
+  }
+
+  /* Gradient Primary Button */
+  .hms-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-bold text-white transition-all duration-300 shadow-md shadow-[#147C8A]/10;
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-dark) 100%);
+  }
+  .hms-btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px -2px rgba(20, 124, 138, 0.25);
+  }
+  .hms-btn-primary:active {
+    transform: translateY(1px) scale(0.98);
+  }
+
+  /* Outline Secondary Button */
+  .hms-btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-bold bg-white border border-[#D7E8EA] text-[#147C8A] transition-all duration-300 shadow-sm;
+  }
+  .hms-btn-secondary:hover {
+    background: var(--brand-section);
+    border-color: var(--brand-primary);
+    color: var(--brand-dark);
+  }
+
+  /* Premium Table Header */
+  .hms-table-header {
+    background: var(--brand-section);
+    color: var(--brand-primary);
+    @apply text-xs font-bold uppercase tracking-wider;
+  }
+
+  /* Pill Status Badges */
+  .hms-badge-active {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-[#E8F5E9] text-[#2E7D32] border border-[#C8E6C9]/40;
+  }
+  .hms-badge-pending {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-[#FFF8E1] text-[#F57F17] border border-[#FFE082]/40;
+  }
+  .hms-badge-error {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-[#FFEBEE] text-[#C62828] border border-[#FFCDD2]/40;
+  }
+  .hms-badge-info {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-[#E1F5FE] text-[#0277BD] border border-[#B3E5FC]/40;
+  }
+  .hms-badge-teal {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-[#E0F2F1] text-[#00695C] border border-[#B2DFDB]/40;
+  }
+}
+
+/* ─── Premium Dark Sidebar ───────────────────────────────────────────────── */
+aside {
+  background: linear-gradient(180deg, #092e33 0%, #031518 100%) !important;
+  border-right: 1px solid rgba(20, 124, 138, 0.15);
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.05);
+}
+
+aside button:not(.active-tab-curve) {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+aside button:not(.active-tab-curve):hover {
+  transform: translateX(4px);
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  color: #ffffff !important;
+}
+
+/* Active Sidebar Item Curve */
+.active-tab-curve {
+  position: relative;
+  background-color: var(--brand-bg) !important;
+  color: var(--brand-primary) !important;
+  border-radius: 24px 0 0 24px !important;
+  font-weight: 800 !important;
+}
+
+.active-tab-curve .sidebar-icon {
+  color: var(--brand-primary) !important;
+}
+
+.active-tab-curve::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -20px;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border-radius: 0 0 20px 0;
+  box-shadow: 8px 8px 0 8px var(--brand-bg);
+  pointer-events: none;
+}
+
+.active-tab-curve::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -20px;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border-radius: 0 20px 0 0;
+  box-shadow: 8px -8px 0 8px var(--brand-bg);
+  pointer-events: none;
+}
+
+/* ─── Table Hover Rows ───────────────────────────────────────────────────── */
+table tbody tr {
+  transition: background-color var(--transition-fast);
+}
+
+table tbody tr:hover {
+  background-color: rgba(20, 124, 138, 0.02) !important;
+}
+
+/* ─── Utility Layer ──────────────────────────────────────────────────────── */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .no-print { }
+  @media print {
+    .no-print { display: none !important; }
+  }
+
+  .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+  .custom-scrollbar::-webkit-scrollbar-thumb { background-color: var(--brand-border); border-radius: 9999px; }
+}

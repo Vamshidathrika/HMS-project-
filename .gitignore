@@ -1,0 +1,22 @@
+# Dependency directories
+**/node_modules/
+**/dist/
+**/target/
+
+# Local configuration files
+.env
+**/.env
+
+# IDE / System files
+.idea/
+**/.idea/
+.DS_Store
+Thumbs.db
+
+# WhatsApp Session data
+**/whatsapp-session/
+**/whatsapp-media/
+
+# Compiled class files
+*.class
+**/target/classes/

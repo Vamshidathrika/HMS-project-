@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: pixel-hms
+
+server:
+  port: 8080
