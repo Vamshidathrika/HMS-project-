@@ -21,7 +21,8 @@ import {
   Workflow,
   Settings,
   LogOut,
-  KeyRound
+  KeyRound,
+  Users
 } from 'lucide-react';
 import FrontDeskView from './components/FrontDeskView';
 import DoctorDeskView from './components/DoctorDeskView';
@@ -782,6 +783,7 @@ export default function App() {
                   { key: 'billing', label: 'Billing Desk', icon: DollarSign },
                   { key: 'reports', label: 'Reports Console', icon: TrendingUp },
                   { key: 'masters', label: 'Masters Config', icon: Building2 },
+                  { key: 'hrstaff', label: 'HR & Staff Console', icon: Users },
                   { key: 'settings', label: 'System Settings', icon: Settings },
                 ].filter(item => hasTabAccess(item.key)).map(item => (
                   <button

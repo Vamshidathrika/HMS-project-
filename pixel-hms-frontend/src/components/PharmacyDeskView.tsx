@@ -348,6 +348,22 @@ export default function PharmacyDeskView() {
             </div>
           )}
 
+          {inventory.filter(item => item.currentStock <= 15).length > 0 && (
+            <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 flex items-start space-x-2 animate-fadeIn">
+              <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+              <div>
+                <span className="font-bold">Inventory Alerts:</span> {inventory.filter(item => item.currentStock <= 15).length} items are running low on stock (less than 15 units remaining). Please reorder soon:
+                <div className="mt-1 font-mono font-bold text-[10px] flex flex-wrap gap-1.5">
+                  {inventory.filter(item => item.currentStock <= 15).map(item => (
+                    <span key={item.id} className="bg-amber-100/80 border border-amber-200/50 px-2 py-0.5 rounded text-[9px]">
+                      {item.drugName} ({item.currentStock} left)
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
           {inventoryLoading ? (
             <div className="text-center py-12 text-[#64748B] text-xs">
               <RefreshCw className="w-8 h-8 mx-auto animate-spin mb-2 opacity-50" />

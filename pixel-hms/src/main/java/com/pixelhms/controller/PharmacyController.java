@@ -53,6 +53,16 @@ public class PharmacyController {
         return ResponseEntity.ok(pharmacyService.getInventory());
     }
 
+    @GetMapping("/inventory/low-stock")
+    public ResponseEntity<List<PharmacyInventory>> getLowStockInventory(
+            @RequestParam(value = "threshold", defaultValue = "15") int threshold) {
+        List<PharmacyInventory> inventory = pharmacyService.getInventory();
+        List<PharmacyInventory> lowStock = inventory.stream()
+                .filter(item -> item.getCurrentStock() != null && item.getCurrentStock() < threshold)
+                .toList();
+        return ResponseEntity.ok(lowStock);
+    }
+
     @PostMapping("/inventory")
     public ResponseEntity<PharmacyInventory> addStock(
             @RequestBody StockRequest req,

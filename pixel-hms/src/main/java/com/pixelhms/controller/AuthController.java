@@ -84,6 +84,29 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
+    @PutMapping("/users/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+        return userRepository.findById(id).map(user -> {
+            if (!user.getUsername().equals(userDetails.getUsername()) &&
+                userRepository.findByUsername(userDetails.getUsername()).isPresent()) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Username already exists"));
+            }
+            
+            user.setUsername(userDetails.getUsername());
+            user.setRole(userDetails.getRole());
+            user.setFullName(userDetails.getFullName());
+            user.setActive(userDetails.isActive());
+            
+            if (userDetails.getPassword() != null && !userDetails.getPassword().trim().isEmpty()) {
+                user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
+            }
+            
+            User updated = userRepository.save(user);
+            auditLogService.log("system", "SuperAdmin", "USER_UPDATE", "Updated user account: " + updated.getUsername(), "127.0.0.1", "SUCCESS");
+            return ResponseEntity.ok(updated);
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/users/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         return userRepository.findById(id).map(user -> {

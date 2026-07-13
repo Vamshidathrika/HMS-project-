@@ -49,7 +49,7 @@ export default function HRStaffView() {
       setUsersList(data);
     } catch (err: any) {
       setError(err.message || 'Error fetching staff database');
-    } fontName: {
+    } finally {
       setLoading(false);
     }
   };
@@ -159,7 +159,7 @@ export default function HRStaffView() {
             placeholder="Search staff by name, role or username..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 bg-[#F8FBFB] border border-[#D7E8EA] rounded-xl text-xs text-white focus:outline-none focus:border-[#147C8A] focus:shadow-[0_0_0_3px_rgba(20,124,138,0.12)]"
+            className="w-full pl-9 pr-4 py-2 bg-[#F8FBFB] border border-[#D7E8EA] rounded-xl text-xs text-[#1E293B] focus:outline-none focus:border-[#147C8A] focus:shadow-[0_0_0_3px_rgba(20,124,138,0.12)]"
           />
         </div>
         <button
@@ -255,7 +255,7 @@ export default function HRStaffView() {
                   placeholder="e.g. Dr. Ramesh Kumar"
                   value={newUser.fullName}
                   onChange={(e) => setNewUser({ ...newUser, fullName: e.target.value })}
-                  className="w-full p-2.5 bg-[#F8FBFB] border border-[#D7E8EA] rounded-xl text-white focus:outline-none"
+                  className="w-full p-2.5 bg-[#F8FBFB] border border-[#D7E8EA] rounded-xl text-[#1E293B] focus:outline-none"
                 />
               </div>
 
@@ -268,7 +268,7 @@ export default function HRStaffView() {
                     placeholder="e.g. rameshk"
                     value={newUser.username}
                     onChange={(e) => setNewUser({ ...newUser, username: e.target.value.toLowerCase().replace(/\s+/g, '') })}
-                    className="w-full p-2.5 bg-[#F8FBFB] border border-[#D7E8EA] rounded-xl text-white focus:outline-none font-mono"
+                    className="w-full p-2.5 bg-[#F8FBFB] border border-[#D7E8EA] rounded-xl text-[#1E293B] focus:outline-none font-mono"
                   />
                 </div>
                 <div>

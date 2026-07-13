@@ -250,7 +250,45 @@ table tbody tr:hover {
 
   .no-print { }
   @media print {
-    .no-print { display: none !important; }
+    .no-print, 
+    aside, 
+    button, 
+    .modal-close, 
+    header,
+    input[type="button"],
+    input[type="submit"] { 
+      display: none !important; 
+    }
+    
+    body {
+      background: none !important;
+      color: #000000 !important;
+      font-size: 11pt !important;
+    }
+
+    main, 
+    .container, 
+    #root,
+    .hms-card {
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    table {
+      width: 100% !important;
+      border-collapse: collapse !important;
+    }
+
+    th, td {
+      border: 1px solid #CCCCCC !important;
+      color: #000000 !important;
+      background: none !important;
+    }
   }
 
   .custom-scrollbar::-webkit-scrollbar { width: 4px; }
